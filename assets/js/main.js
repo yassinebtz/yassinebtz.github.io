@@ -148,7 +148,7 @@
         $('#theme-toggle-btn').on('click', function() {
             $('html').toggleClass('dark-mode');
             localStorage.setItem('darkMode', $('html').hasClass('dark-mode'));
-            
+
             // Update particles colors
             updateParticlesColors();
         });
@@ -166,9 +166,9 @@
 
     // Get theme colors for particles
     function themeColors() {
-        return $('html').hasClass('dark-mode') 
-            ? ['#7c73ff', '#ff4081', '#26c6da'] 
-            : ['#6c63ff', '#f50057', '#00bcd4'];
+        return $('html').hasClass('dark-mode') ?
+            ['#7c73ff', '#ff4081', '#26c6da'] :
+            ['#6c63ff', '#f50057', '#00bcd4'];
     }
 
     // Update particles colors when theme changes
@@ -185,7 +185,7 @@
     function animateSkillBars() {
         $('.skill-item').each(function() {
             const $this = $(this);
-            
+
             // Check if element is in viewport
             const isInViewport = function() {
                 const elementTop = $this.offset().top;
@@ -194,7 +194,7 @@
                 const viewportBottom = viewportTop + $(window).height();
                 return elementBottom > viewportTop && elementTop < viewportBottom;
             };
-            
+
             // Animate when in viewport
             if (isInViewport()) {
                 $this.find('.progress-bar').css('width', $this.find('.progress-bar').attr('style').split(':')[1]);
@@ -206,7 +206,7 @@
     function loadRssFeed() {
         const rssFeedURL = "https://www.zataz.com/feed/";
         const proxyURL = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(rssFeedURL);
-        
+
         $.ajax({
             url: proxyURL,
             type: 'GET',
@@ -214,17 +214,17 @@
             success: function(data) {
                 const items = data.items;
                 let tableContent = '';
-                
+
                 // Limit to 5 items
                 const limitedItems = items.slice(0, 5);
-                
+
                 limitedItems.forEach(function(item) {
                     const title = item.title;
                     let description = item.description;
                     // Strip HTML and limit description length
                     description = $('<div>').html(description).text();
                     description = description.substring(0, 100) + '...';
-                    
+
                     tableContent += `
                         <tr>
                             <td><strong>${title}</strong></td>
@@ -233,7 +233,7 @@
                         </tr>
                     `;
                 });
-                
+
                 $('#rss-table-body').html(tableContent);
             },
             error: function() {
